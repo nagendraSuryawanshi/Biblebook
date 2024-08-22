@@ -49,6 +49,10 @@ const CartItem = (props :any) => {
           </View>
         )}
         /> 
+        <View >
+            <Text style={styles.title}>{itemComments.length} comments</Text>           
+           
+          </View>
     <View style={styles.buttonContainer}>
          <TouchableOpacity onPress={handleLike} style={styles.button}>
           <Icone name={liked ? 'favorite' : 'favorite-border'} size={27} color={liked ? 'red' : 'gray'} />
@@ -129,9 +133,11 @@ input: {
 },
   buttonContainer: {
     flexDirection: 'row',
-    marginLeft: 'auto',
+    // marginLeft: 'auto',
     alignContent:"flex-start",
-    textAlign:"left"
+    justifyContent:"flex-start",
+    textAlign:"left",
+    marginTop:10
   },
   commentInputContainer: {
     flexDirection: 'row',
