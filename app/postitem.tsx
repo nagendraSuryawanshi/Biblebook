@@ -69,14 +69,14 @@ const CartItem = (props :any) => {
        {
       isVisible && <View  style={styles.commentInputContainer}>
       <TextInput  style={styles.input}  
-        placeholder="Type here to translate!"
+        placeholder="Type here to comment!"
         onChangeText={newText => setCommentText(newText)}
         value={commentText}
         defaultValue={commentText}
         />   
       <TouchableOpacity onPress={toggleVisibility} style={styles.commentButton}>
      
-      <Icon.Button
+      <Icon.Button style={styles.commentbutton}
       name="forward"
       backgroundColor="gray"
       onPress={handleComment}
@@ -126,10 +126,10 @@ inputText: {
 
 },
 input: {
-  height: 60,
+  height: 80,
   marginHorizontal: 12,
   borderWidth: 1, 
-  width:"90%"
+  width:"80%"
 },
   buttonContainer: {
     flexDirection: 'row',
@@ -143,11 +143,15 @@ input: {
     flexDirection: 'row',
     marginLeft: 'auto',
     alignContent:"flex-start",
+    justifyContent:"flex-start",
      borderStyle:"solid",
      alignSelf: 'stretch',
      textAlign: 'center',
      width:"100%"
     // borderColor:"gray"
+  },
+  commentbutton:{
+height:50
   },
   button: {
     marginHorizontal: 8,
