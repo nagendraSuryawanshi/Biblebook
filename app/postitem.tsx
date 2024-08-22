@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -32,11 +32,23 @@ const CartItem = (props :any) => {
    var comments=itemComments;
    comments.push(commentText);
    setItemComments(comments)
+   console.log("comments",comments)
+   setCommentText("");
   };
 
+  
   return (
-    <View style={styles.container}>
-     
+    <View style={styles.cartcontainer}>
+     <FlatList 
+        data={itemComments}
+        keyExtractor={(item,index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.comments}>
+            <Text style={styles.title}>{item}</Text>           
+           
+          </View>
+        )}
+        /> 
     <View style={styles.buttonContainer}>
          <TouchableOpacity onPress={handleLike} style={styles.button}>
           <Icone name={liked ? 'favorite' : 'favorite-border'} size={27} color={liked ? 'red' : 'gray'} />
@@ -47,10 +59,17 @@ const CartItem = (props :any) => {
            {/* <Icon name='comment' size={24} color='gray' /> */}
            <FontAwesome name="comment-o" size={24} color="gray" />
          </TouchableOpacity>
+         
+          
        </View>
        {
       isVisible && <View  style={styles.commentInputContainer}>
-      <TextInput  style={styles.input}  onChange={(e)=>setCommentText(e.target.value)}/>   
+      <TextInput  style={styles.input}  
+        placeholder="Type here to translate!"
+        onChangeText={newText => setCommentText(newText)}
+        value={commentText}
+        defaultValue={commentText}
+        />   
       <TouchableOpacity onPress={toggleVisibility} style={styles.commentButton}>
      
       <Icon.Button
@@ -71,12 +90,15 @@ const CartItem = (props :any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  cartcontainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
      borderStyle:"solid",
-    borderColor:"gray"
+    borderColor:"gray",
+    paddingLeft:10,
+    marginTop:10
+
   },
   text: {
     fontSize: 18,
@@ -102,8 +124,7 @@ inputText: {
 input: {
   height: 60,
   marginHorizontal: 12,
-  borderWidth: 1,
-  padding: 10,
+  borderWidth: 1, 
   width:"90%"
 },
   buttonContainer: {
@@ -132,6 +153,16 @@ input: {
     color:"#fff",
     margin:5,
   },
+  comments:{
+    backgroundColor:"rgba(221,221,221,1.00)",
+    borderBlockColor:"rgba(221,221,221,1.00)",
+    borderRadius:6,
+    paddingBottom:10,
+    marginBottom:5,
+  },
+  title:{
+
+  }
 });
 
 export default CartItem;
